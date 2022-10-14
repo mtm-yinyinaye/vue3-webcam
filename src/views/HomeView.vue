@@ -1,69 +1,67 @@
 <template>
   <div class="home">
     <div class="content">
-      <img
+      <Image
         v-if="!isOpen"
         :src="camera_icon"
-        alt="Camera"
-        class="camera_icon"
-        @click="openCamera"
+        :className="'camera_icon'"
+        :onClick="openCamera"
+        style="margin: 50px"
       />
       <div v-else>
         <Camera :resolution="{ width: 375, height: 812 }" ref="camera" autoplay>
           <div class="camera_frame">
-            <div class="input-file-body">
-              <input
-                type="file"
-                name="uploadFile"
-                accept="png, .jpg, .jpeg, .mp4, .mov"
-                ref="file"
-                class="input-file"
-                @change="getUploadImage"
-              />
-              <img :src="gallery_img" class="gallery_img" />
-            </div>
-            <img
+            <File
+              :accept="'png, .jpg, .jpeg, .mp4, .mov'"
+              ref="file"
+              @change="getUploadImage"
+            />
+            <Image
               :src="camera_img"
-              alt="Camera"
-              class="camera_img"
-              @click="snapshot"
+              :className="'camera_img'"
+              :onClick="snapshot"
             />
             <div>
-              <img
+              <Image
                 v-if="recording"
                 :src="record_img"
-                alt="record_img"
-                class="record_img"
-                @click="stopRecord"
+                :className="'record_img'"
+                :onClick="stopRecord"
               />
-              <img
+              <Image
                 v-else
                 :src="start_record_img"
-                alt="start_record_img"
-                class="record_img"
-                @click="startRecord"
+                :className="'record_img'"
+                :onClick="startRecord"
               />
             </div>
           </div>
         </Camera>
       </div>
-      <img v-if="imagePreview && !isOpen" class="image_preview" :src="imagePreview" />
+      <Image
+        v-if="imagePreview && !isOpen"
+        :src="imagePreview"
+        :className="'image_preview'"
+      />
       <div v-if="videopreview && !isOpen">
         <video :src="videopreview" width="360" height="360" controls></video>
-        <a :href="download_link" id="download-video" download="test.mp4">Download Video</a>
+        <a :href="download_link" id="download-video" download="test.mp4"
+          >Download Video</a
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Camera from "simple-vue-camera";
 import camera_icon from "@/assets/img/camera-icon.png";
 import camera_img from "@/assets/img/camera.png";
-import gallery_img from "@/assets/img/gallery.png";
 import record_img from "@/assets/img/stop_record.jpg";
 import start_record_img from "@/assets/img/player_record.png";
+import File from "@/components/File.vue";
+import Image from "@/components/Image.vue";
 
 //data
 const camera = ref<InstanceType<typeof Camera>>();
@@ -135,7 +133,7 @@ const stopRecord = () => {
 const setNullData = () => {
   imagePreview.value = null;
   videopreview.value = null;
-}
+};
 </script>
 
 <style scoped>
@@ -166,26 +164,6 @@ const setNullData = () => {
   right: 15px;
   width: 30px;
   height: 25px;
-  cursor: pointer;
-}
-.input-file {
-  -webkit-appearance: none;
-  appearance: none;
-  position: absolute;
-  z-index: 2;
-  bottom: 5px;
-  left: 15px;
-  opacity: 0;
-  width: 40px;
-  height: 100%;
-  cursor: pointer;
-}
-.gallery_img {
-  position: absolute;
-  bottom: 5px;
-  left: 15px;
-  width: 40px;
-  height: 40px;
   cursor: pointer;
 }
 .close video,
