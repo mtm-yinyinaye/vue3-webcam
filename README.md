@@ -28,6 +28,13 @@ yarn lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+### Refrench link
+
+```
+https://www.npmjs.com/package/simple-vue-camera
+https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API/Recording_a_media_element
+```
+
 
 ## Action
 
